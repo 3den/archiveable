@@ -1,5 +1,5 @@
 $:.push File.expand_path('../', __FILE__)
-require "active_support/concern"
+require "active_support/all"
 require "archiveable/version"
 
 module Archiveable
