@@ -25,4 +25,20 @@ module Archiveable
   def archived=(value)
     self.archived_at = value ? Time.now : nil
   end
+
+  def archive
+    update archived: true
+  end
+
+  def archive!
+    update! archived: true
+  end
+
+  def publish
+    update archived: false
+  end
+
+  def publish!
+    update! archived: false
+  end
 end

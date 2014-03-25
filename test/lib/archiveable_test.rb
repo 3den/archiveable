@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 describe Archiveable do
-  class MockModel
+  class MockModel < MiniTest::Mock
     def self.scopes
       @scopes
     end
@@ -15,6 +15,8 @@ describe Archiveable do
     include Archiveable
   end
 
+  subject { MockModel.new }
+
   describe ".included" do
     it "sets the published and archived scopes" do
       MockModel.scopes.keys.must_equal [:published, :archived]
@@ -22,8 +24,6 @@ describe Archiveable do
   end
 
   describe ".archived" do
-    subject { MockModel.new }
-
     it "returns true when there is an archived_at date" do
       subject.archived_at = Time.now
       subject.archived.must_equal true
@@ -49,8 +49,6 @@ describe Archiveable do
   end
 
   describe ".published" do
-    subject { MockModel.new }
-
     it "returns true when it is not archived" do
       subject.archived = false
       subject.published.must_equal true
@@ -64,6 +62,38 @@ describe Archiveable do
     it "sets the archived to false when published is true" do
       subject.published = true
       subject.archived.must_equal false
+    end
+  end
+
+  describe "#archive" do
+    it "updates the archived to true" do
+      subject.expect :update, true, [{archived: true}]
+      subject.archive
+      subject.verify
+    end
+  end
+
+  describe "#archive!" do
+    it "updates the archived to true" do
+      subject.expect :update!, true, [{archived: true}]
+      subject.archive!
+      subject.verify
+    end
+  end
+
+  describe "#publish" do
+    it "updates the archived to false" do
+      subject.expect :update, true, [{archived: false}]
+      subject.publish
+      subject.verify
+    end
+  end
+
+  describe "#publish!" do
+    it "updates the archived to false" do
+      subject.expect :update!, true, [{archived: false}]
+      subject.publish!
+      subject.verify
     end
   end
 end
