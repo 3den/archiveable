@@ -6,8 +6,8 @@ require "archiveable/version"
 Gem::Specification.new do |spec|
   spec.name          = "archiveable"
   spec.version       = Archiveable::VERSION
-  spec.authors       = ["JBailes", "3den"]
-  spec.email         = ["j@bailes.us", "eden@3den.biz"]
+  spec.authors       = ["JBailes", "Marcelo Eden"]
+  spec.email         = ["j@bailes.us", "edendroid@gmail.com"]
   spec.summary       = %q{Archiveable concern for rails models}
   spec.description   = %q{Archiveable concern for rails models}
   spec.homepage      = "https://github.com/3den/archiveable"
