@@ -15,7 +15,7 @@ module Archiveable
   end
 
   def published=(value)
-    self.archived = !value
+    self.archived = !bool(value)
   end
 
   def archived
@@ -23,7 +23,7 @@ module Archiveable
   end
 
   def archived=(value)
-    self.archived_at = value ? Time.now : nil
+    self.archived_at = bool(value) ? Time.now : nil
   end
 
   def archive
@@ -40,5 +40,11 @@ module Archiveable
 
   def publish!
     update! archived: false
+  end
+
+  private
+
+  def bool(value)
+    not ["false", "0", ""].include? value.to_s.downcase
   end
 end

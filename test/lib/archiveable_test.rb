@@ -46,6 +46,12 @@ describe Archiveable do
       subject.archived = false
       subject.archived_at.must_equal nil
     end
+
+    it "unsets the archived_at when archived is set to 0" do
+      subject.archived_at = Time.now
+      subject.archived = 0
+      subject.archived_at.must_equal nil
+    end
   end
 
   describe ".published" do
